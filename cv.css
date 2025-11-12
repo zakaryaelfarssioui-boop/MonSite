@@ -4,39 +4,52 @@
     padding: 0;
     box-sizing: border-box;
 }
+html {
+    scroll-behavior: smooth;
+}
 body {
     font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, #302b63, #24243e);
     color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     padding: 0;
-    margin: 0;
+    overflow-x: hidden;
+    position: relative;
 }
 
 /* ================== Conteneur ================== */
 .cv-container {
+    position: relative;
+    z-index:1;
     background: rgba(0,0,0,0.75);
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    padding: 0; /* réduit l’espace autour du CV */
-    margin: 0 auto;
+    width: 100%;
     max-width: 900px;
+    overflow: hidden;
+    animation: fadeIn 1s ease-in-out;
+    padding: 0;
+    margin: 0 auto;
 }
 
 /* ================== Header ================== */
 .header {
     text-align: center;
-    padding: 20px 15px; /* moins d’espace en haut et bas */
+    padding: 20px 15px;
     background: linear-gradient(to right, #6a11cb, #2575fc);
     border-bottom: 2px solid rgba(255,255,255,0.2);
     border-radius: 20px 20px 0 0;
 }
 .header h1 {
-    font-size: 2rem;
+    font-size: 2.4rem;
     margin-bottom: 10px;
     word-break: break-word;
 }
 .header p {
-    font-size: 0.95rem;
+    font-size: 1rem;
     opacity: 0.9;
     margin-bottom: 5px;
     word-break: break-word;
@@ -47,23 +60,24 @@ body {
     text-decoration: none;
     color: #fff;
     background: #6a11cb;
-    font-weight: 600;
-    border-radius: 50px;
-    padding: 10px 15px;
+    padding: 12px 25px;
     margin: 5px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     display: inline-block;
     text-align: center;
-    transition: all 0.3s;
 }
 .header .buttons a:hover {
     background: #2575fc;
-    transform: scale(1.05) rotate(-1deg);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transform: scale(1.1) rotate(-1deg);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
 
 /* ================== Sections ================== */
 .section {
-    padding: 20px 15px;
+    padding: 40px 25px;
     border-bottom: 1px solid rgba(255,255,255,0.2);
     opacity: 0;
     transform: translateY(40px);
@@ -74,50 +88,86 @@ body {
     transform: translateY(0);
 }
 .section h2 {
-    font-size: 1.5rem;
+    font-size: 2rem;
+    margin-bottom: 20px;
     color: #2575fc;
-    margin-bottom: 15px;
-    word-break: break-word;
     transition: all 0.3s;
+    text-align: left;
 }
 .section h2:hover {
     color: #6a11cb;
 }
+.section ul {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+}
 .section ul li {
-    font-size: 1rem;
-    line-height: 1.5;
-    word-break: break-word;
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+}
+
+/* ================== Grilles ================== */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 /* ================== Footer ================== */
 .footer {
     text-align: center;
-    padding: 15px;
-    font-size: 0.85rem;
+    padding: 20px;
+    font-size: 0.9rem;
     opacity: 0.7;
     background: rgba(255,255,255,0.05);
-}
-
-/* ================== Grilles responsive ================== */
-.grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-@media (max-width: 700px) {
-    .grid-2 {
-        grid-template-columns: 1fr;
-    }
-    .header h1 { font-size: 1.8rem; }
-    .section h2 { font-size: 1.3rem; }
-    .header .buttons a {
-        width: 100%;
-        padding: 12px 0;
-    }
 }
 
 /* ================== Animations ================== */
 @keyframes fadeIn {
     from {opacity:0; transform:translateY(20px);}
     to {opacity:1; transform:translateY(0);}
+}
+
+/* ================== Responsive mobile ================== */
+@media (max-width: 700px) {
+
+  /* Header : texte et padding plus petits */
+  .header {
+    padding: 15px 10px;
+  }
+  .header h1 {
+    font-size: 1.8rem;
+  }
+  .header p {
+    font-size: 0.9rem;
+  }
+
+  /* Boutons : prennent toute la largeur, s’empilent */
+  .header .buttons a {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    display: block;
+    text-align: center;
+  }
+
+  /* Sections : texte plus petit */
+  .section h2 {
+    font-size: 1.3rem;
+  }
+  .section ul li {
+    font-size: 0.95rem;
+  }
+
+  /* Grilles : une seule colonne */
+  .grid-2 {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  /* Footer : texte plus petit */
+  .footer {
+    font-size: 0.8rem;
+  }
 }
