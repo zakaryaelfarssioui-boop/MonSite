@@ -1,85 +1,123 @@
-/* Reset et base */
-* { margin:0; padding:0; box-sizing:border-box; }
+/* ================== Base ================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
     font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, #302b63, #24243e);
     color: #fff;
+    padding: 0;
+    margin: 0;
 }
 
-/* Conteneur principal */
+/* ================== Conteneur ================== */
 .cv-container {
     background: rgba(0,0,0,0.75);
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    padding: 20px;
-    margin: 20px auto;
+    padding: 0; /* réduit l’espace autour du CV */
+    margin: 0 auto;
     max-width: 900px;
 }
 
-/* Header */
+/* ================== Header ================== */
 .header {
     text-align: center;
-    padding: 40px 20px;
+    padding: 20px 15px; /* moins d’espace en haut et bas */
     background: linear-gradient(to right, #6a11cb, #2575fc);
     border-bottom: 2px solid rgba(255,255,255,0.2);
-    border-radius: 15px 15px 0 0;
+    border-radius: 20px 20px 0 0;
 }
-.header h1 { font-size: 2.4rem; margin-bottom: 10px; }
-.header p { font-size: 1rem; opacity: 0.9; margin-bottom: 5px; }
+.header h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    word-break: break-word;
+}
+.header p {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin-bottom: 5px;
+    word-break: break-word;
+}
+
+/* ================== Boutons ================== */
 .header .buttons a {
     text-decoration: none;
     color: #fff;
     background: #6a11cb;
-    padding: 12px 20px;
-    border-radius: 50px;
     font-weight: 600;
-    transition: all 0.3s;
-    display: inline-block;
+    border-radius: 50px;
+    padding: 10px 15px;
     margin: 5px;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s;
 }
 .header .buttons a:hover {
     background: #2575fc;
     transform: scale(1.05) rotate(-1deg);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* Sections */
+/* ================== Sections ================== */
 .section {
-    padding: 30px 15px;
+    padding: 20px 15px;
     border-bottom: 1px solid rgba(255,255,255,0.2);
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+}
+.section.visible {
+    opacity:1;
+    transform: translateY(0);
 }
 .section h2 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: #2575fc;
     margin-bottom: 15px;
+    word-break: break-word;
+    transition: all 0.3s;
+}
+.section h2:hover {
+    color: #6a11cb;
 }
 .section ul li {
     font-size: 1rem;
     line-height: 1.5;
+    word-break: break-word;
 }
 
-/* Footer */
+/* ================== Footer ================== */
 .footer {
     text-align: center;
     padding: 15px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     opacity: 0.7;
     background: rgba(255,255,255,0.05);
 }
 
-/* Grilles responsive */
+/* ================== Grilles responsive ================== */
 .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 15px;
 }
 @media (max-width: 700px) {
-    .grid-2 { grid-template-columns: 1fr; }
-    .header h1 { font-size: 2rem; }
-    .section h2 { font-size: 1.4rem; }
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+    .header h1 { font-size: 1.8rem; }
+    .section h2 { font-size: 1.3rem; }
+    .header .buttons a {
+        width: 100%;
+        padding: 12px 0;
+    }
 }
 
-/* Animations */
-@keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
-.section { opacity:0; transform:translateY(40px); transition: all 0.8s ease-out; }
-.section.visible { opacity:1; transform:translateY(0); }
+/* ================== Animations ================== */
+@keyframes fadeIn {
+    from {opacity:0; transform:translateY(20px);}
+    to {opacity:1; transform:translateY(0);}
+}
