@@ -1,12 +1,6 @@
 /* ================== Base ================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-html {
-    scroll-behavior: smooth;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
 body {
     font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, #302b63, #24243e);
@@ -19,6 +13,7 @@ body {
     overflow-x: hidden;
     position: relative;
 }
+canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; }
 
 /* ================== Conteneur ================== */
 .cv-container {
@@ -31,6 +26,7 @@ body {
     max-width: 900px;
     overflow: hidden;
     animation: fadeIn 1s ease-in-out;
+    padding: 20px;
 }
 
 /* ================== Header ================== */
@@ -38,21 +34,21 @@ body {
     text-align: center;
     padding: 50px 20px;
     background: linear-gradient(to right, #6a11cb, #2575fc);
-    border-bottom: 2px solid rgba(255,255,255,0.2);
+    border-bottom: 2px solid #fff2;
+    box-sizing: border-box;
+    margin: -20px -20px 20px -20px; /* fixe le fond coloré sur les bords */
+    border-radius: 20px 20px 0 0;    /* arrondi uniquement en haut */
 }
-.header h1 {
-    font-size: 2.8rem;
-    margin-bottom: 10px;
-    word-break: break-word;
-}
-.header p {
-    font-size: 1rem;
-    opacity: 0.9;
-    margin-bottom: 5px;
-    word-break: break-word;
-}
+.header h1 { font-size: 2.8rem; margin-bottom: 10px; word-break: break-word; }
+.header p { font-size: 1rem; opacity: 0.9; margin-bottom: 5px; word-break: break-word; }
 
 /* ================== Boutons ================== */
+.header .buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 .header .buttons a {
     text-decoration: none;
     color: #fff;
@@ -65,6 +61,7 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     display: inline-block;
     text-align: center;
+    white-space: nowrap;
 }
 .header .buttons a:hover {
     background: #2575fc;
@@ -80,10 +77,8 @@ body {
     transform: translateY(40px);
     transition: all 0.8s ease-out;
 }
-.section.visible {
-    opacity:1;
-    transform: translateY(0);
-}
+.section.visible { opacity:1; transform:translateY(0); }
+
 .section h2 {
     font-size: 2rem;
     margin-bottom: 20px;
@@ -91,87 +86,49 @@ body {
     transition: all 0.3s;
     text-align: left;
 }
-.section h2:hover {
-    color: #6a11cb;
-}
-.section ul {
-    list-style: none;
-    padding-left: 0;
-    margin-left: 0;
-}
-.section ul li {
-    margin-bottom: 12px;
-    font-size: 1.05rem;
-}
+.section:hover h2 { color: #6a11cb; }
+.section ul { list-style: none; padding-left: 0; margin-left: 0; }
+.section ul li { margin-bottom: 12px; font-size: 1.05rem; }
 
 /* ================== Grilles ================== */
-.grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
 
 /* ================== Footer ================== */
-.footer {
-    text-align: center;
-    padding: 20px;
-    font-size: 0.9rem;
-    opacity: 0.7;
-    background: rgba(255,255,255,0.05);
-}
+.footer { text-align: center; padding: 20px; font-size: 0.9rem; opacity: 0.7; background: rgba(255,255,255,0.05); }
 
 /* ================== Animations ================== */
-@keyframes fadeIn {
-    from {opacity:0; transform:translateY(20px);}
-    to {opacity:1; transform:translateY(0);}
-}
+@keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
 
 /* ================== Responsive mobile ================== */
 @media (max-width: 700px) {
+    .cv-container { padding: 10px; }
+    .header { 
+        padding: 20px 10px; 
+        margin: -10px -10px 10px -10px; /* adapte pour mobile */
+    }
+    .header h1 { font-size: 1.8rem; }
+    .header p { font-size: 0.9rem; }
 
-  /* Header : texte et padding plus petits */
-  .header {
-    padding: 20px 15px;
-  }
-  .header h1 {
-    font-size: 1.8rem;
-  }
-  .header p {
-    font-size: 0.9rem;
-  }
+    /* Boutons empilés et centrés, texte sur une ligne */
+    .header .buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .header .buttons a {
+        width: 100%;
+        max-width: 250px;
+        margin: 5px auto;
+        padding: 10px 15px;
+        white-space: nowrap;
+    }
 
-  /* Boutons : empilés, centrés et texte sur une ligne */
-  .header .buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .header .buttons a {
-    width: auto;
-    min-width: 150px;
-    white-space: nowrap;
-    text-align: center;
-    margin: 5px 0;
-    padding: 10px 15px;
-    display: inline-block;
-  }
+    /* Sections texte plus petit */
+    .section h2 { font-size: 1.3rem; }
+    .section ul li { font-size: 0.95rem; }
 
-  /* Sections : texte plus petit */
-  .section h2 {
-    font-size: 1.3rem;
-  }
-  .section ul li {
-    font-size: 0.95rem;
-  }
+    /* Grilles en colonne */
+    .grid-2 { grid-template-columns: 1fr; gap: 15px; }
 
-  /* Grilles : une seule colonne */
-  .grid-2 {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  /* Footer : texte plus petit */
-  .footer {
-    font-size: 0.8rem;
-  }
+    /* Footer plus petit */
+    .footer { font-size: 0.8rem; }
 }
