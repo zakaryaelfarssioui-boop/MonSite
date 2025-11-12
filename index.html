@@ -11,8 +11,8 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 <style>
-/* ================== Base ================== */
-* { margin:0; padding:0; box-sizing:border-box; }
+/* ================== Reset et général ================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
     font-family: 'Inter', sans-serif;
@@ -20,15 +20,16 @@ body {
     color: #fff;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
-    padding: 20px;
+    padding: 0;
     overflow-x: hidden;
-    position: relative;
 }
+
+/* ================== Canvas arrière-plan ================== */
 canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; }
 
-/* ================== Conteneur ================== */
+/* ================== Conteneur principal ================== */
 .cv-container {
     position: relative;
     z-index:1;
@@ -39,15 +40,17 @@ canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; 
     max-width: 900px;
     overflow: hidden;
     animation: fadeIn 1s ease-in-out;
-    padding: 20px;
 }
 
 /* ================== Header ================== */
 .header {
-    text-align: center;
+    width: 100%;
     padding: 50px 20px;
     background: linear-gradient(to right, #6a11cb, #2575fc);
-    border-bottom: 2px solid #fff2;
+    text-align: center;
+    color: #fff;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     box-sizing: border-box;
 }
 .header h1 { font-size: 2.8rem; margin-bottom: 10px; word-break: break-word; }
@@ -72,7 +75,7 @@ canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; 
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     display: inline-block;
     text-align: center;
-    white-space: nowrap; /* empêche le texte de se couper */
+    white-space: nowrap;
 }
 .header .buttons a:hover {
     background: #2575fc;
@@ -89,7 +92,6 @@ canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; 
     transition: all 0.8s ease-out;
 }
 .section.visible { opacity:1; transform:translateY(0); }
-
 .section h2 {
     font-size: 2rem;
     margin-bottom: 20px;
@@ -101,43 +103,34 @@ canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; 
 .section ul { list-style: none; padding-left: 0; margin-left: 0; }
 .section ul li { margin-bottom: 12px; font-size: 1.05rem; }
 
-/* ================== Grilles ================== */
-.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+/* ================== Grille ================== */
+.grid-2 { display: grid; grid-template-columns:1fr 1fr; gap:20px; }
 
 /* ================== Footer ================== */
-.footer { text-align: center; padding: 20px; font-size: 0.9rem; opacity: 0.7; background: rgba(255,255,255,0.05); }
+.footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    background: rgba(255,255,255,0.05);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
 
 /* ================== Animations ================== */
 @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
 
 /* ================== Responsive mobile ================== */
-@media (max-width: 700px) {
-    .cv-container { padding: 10px; }
-    .header { padding: 20px 10px; }
+@media (max-width:700px) {
+    .header { padding: 30px 15px; }
     .header h1 { font-size: 1.8rem; }
     .header p { font-size: 0.9rem; }
-
-    /* Boutons empilés et centrés, texte sur une ligne */
-    .header .buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    .header .buttons a {
-        width: 100%;
-        max-width: 250px;
-        margin: 5px auto;
-        padding: 10px 15px;
-        white-space: nowrap;
-    }
-
-    /* Sections texte plus petit */
+    .header .buttons { flex-direction: column; align-items: center; }
+    .header .buttons a { width: 100%; max-width: 250px; margin: 5px auto; padding: 10px 15px; }
+    .cv-container { padding: 10px; }
     .section h2 { font-size: 1.3rem; }
     .section ul li { font-size: 0.95rem; }
-
-    /* Grilles en colonne */
     .grid-2 { grid-template-columns: 1fr; gap: 15px; }
-
-    /* Footer plus petit */
     .footer { font-size: 0.8rem; }
 }
 </style>
@@ -228,7 +221,9 @@ canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; 
 <script>
 const sections = document.querySelectorAll('.section');
 const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('visible'); } });
+  entries.forEach(entry => {
+    if(entry.isIntersecting){ entry.target.classList.add('visible'); }
+  });
 }, { threshold: 0.2 });
 sections.forEach(section => observer.observe(section));
 
@@ -239,45 +234,45 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 window.addEventListener('resize', function(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    init();
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  init();
 });
 
 class Particle {
-    constructor(x, y, size, speedX, speedY){
-        this.x = x; this.y = y; this.size = size; this.speedX = speedX; this.speedY = speedY;
-    }
-    update(){
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if(this.x > canvas.width || this.x < 0) this.speedX *= -1;
-        if(this.y > canvas.height || this.y < 0) this.speedY *= -1;
-    }
-    draw(){
-        ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
-        ctx.fill();
-    }
+  constructor(x, y, size, speedX, speedY){
+    this.x = x; this.y = y; this.size = size; this.speedX = speedX; this.speedY = speedY;
+  }
+  update(){
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.x > canvas.width || this.x < 0) this.speedX *= -1;
+    if(this.y > canvas.height || this.y < 0) this.speedY *= -1;
+  }
+  draw(){
+    ctx.fillStyle = 'rgba(255,255,255,0.6)';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fill();
+  }
 }
 
 function init(){
-    particlesArray = [];
-    for(let i=0; i<100; i++){
-        let size = Math.random()*3 + 1;
-        let x = Math.random()*canvas.width;
-        let y = Math.random()*canvas.height;
-        let speedX = (Math.random()-0.5)*1;
-        let speedY = (Math.random()-0.5)*1;
-        particlesArray.push(new Particle(x,y,size,speedX,speedY));
-    }
+  particlesArray = [];
+  for(let i=0; i<100; i++){
+    let size = Math.random()*3 + 1;
+    let x = Math.random()*canvas.width;
+    let y = Math.random()*canvas.height;
+    let speedX = (Math.random()-0.5)*1;
+    let speedY = (Math.random()-0.5)*1;
+    particlesArray.push(new Particle(x,y,size,speedX,speedY));
+  }
 }
 
 function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particlesArray.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animate);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particlesArray.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animate);
 }
 
 init();
