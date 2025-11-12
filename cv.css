@@ -9,24 +9,38 @@ body {
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
-    padding: 0;
+    padding: 20px;
     overflow-x: hidden;
     position: relative;
 }
 canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; }
 
-/* ================== HEADER plein écran ================== */
+/* ================== Conteneur ================== */
+.cv-container {
+    position: relative;
+    z-index:1;
+    background: rgba(0,0,0,0.75);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    width: 100%;
+    max-width: 900px;
+    overflow: hidden;
+    animation: fadeIn 1s ease-in-out;
+    padding: 20px;
+}
+
+/* ================== Header ================== */
 .header {
-    width: 100vw; /* toute la largeur de l'écran */
+    text-align: center;
     padding: 50px 20px;
     background: linear-gradient(to right, #6a11cb, #2575fc);
-    text-align: center;
     border-bottom: 2px solid #fff2;
-    box-sizing: border-box;
-    color: #fff;
+    border-radius: 20px 20px 0 0;
 }
 .header h1 { font-size: 2.8rem; margin-bottom: 10px; word-break: break-word; }
 .header p { font-size: 1rem; opacity: 0.9; margin-bottom: 5px; word-break: break-word; }
+
+/* ================== Boutons ================== */
 .header .buttons {
     margin-top: 20px;
     display: flex;
@@ -51,20 +65,6 @@ canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; 
     background: #2575fc;
     transform: scale(1.1) rotate(-1deg);
     box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-}
-
-/* ================== Conteneur ================== */
-.cv-container {
-    position: relative;
-    z-index:1;
-    background: rgba(0,0,0,0.75);
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    width: 100%;
-    max-width: 900px;
-    overflow: hidden;
-    animation: fadeIn 1s ease-in-out;
-    padding: 20px;
 }
 
 /* ================== Sections ================== */
@@ -99,14 +99,20 @@ canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; 
 
 /* ================== Responsive mobile ================== */
 @media (max-width: 700px) {
+    /* Conteneur réduit */
     .cv-container { padding: 10px; }
-    .header { 
+
+    /* Header mobile étiré sur toute la largeur du conteneur */
+    .header {
+        margin-left: -10px;
+        margin-right: -10px;
         padding: 30px 15px;
+        border-radius: 15px 15px 0 0;
     }
     .header h1 { font-size: 1.8rem; }
     .header p { font-size: 0.9rem; }
 
-    /* Boutons empilés et centrés, texte sur une ligne */
+    /* Boutons empilés sur mobile */
     .header .buttons {
         flex-direction: column;
         align-items: center;
