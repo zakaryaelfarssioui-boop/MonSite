@@ -7,30 +7,28 @@
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<!-- Font Awesome -->
+<!-- Font Awesome Icons -->
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 <style>
-/* ================== Reset et général ================== */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
     font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, #302b63, #24243e);
     color: #fff;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     min-height: 100vh;
-    padding: 0;
+    padding: 20px;
     overflow-x: hidden;
-}
+    position: relative;
+  }
 
-/* ================== Canvas arrière-plan ================== */
-canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; }
+  canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; }
 
-/* ================== Conteneur principal ================== */
-.cv-container {
+  .cv-container {
     position: relative;
     z-index:1;
     background: rgba(0,0,0,0.75);
@@ -40,30 +38,18 @@ canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; 
     max-width: 900px;
     overflow: hidden;
     animation: fadeIn 1s ease-in-out;
-}
+  }
 
-/* ================== Header ================== */
-.header {
-    width: 100%;
+  .header {
+    text-align: center;
     padding: 50px 20px;
     background: linear-gradient(to right, #6a11cb, #2575fc);
-    text-align: center;
-    color: #fff;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    box-sizing: border-box;
-}
-.header h1 { font-size: 2.8rem; margin-bottom: 10px; word-break: break-word; }
-.header p { font-size: 1rem; opacity: 0.9; margin-bottom: 5px; word-break: break-word; }
-
-/* ================== Boutons ================== */
-.header .buttons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-.header .buttons a {
+    border-bottom: 2px solid #fff2;
+  }
+  .header h1 { font-size: 2.8rem; margin-bottom: 10px; }
+  .header p { font-size: 1rem; opacity: 0.9; margin-bottom: 5px; }
+  .header .buttons { margin-top: 20px; }
+  .header .buttons a {
     text-decoration: none;
     color: #fff;
     background: #6a11cb;
@@ -73,66 +59,47 @@ canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; 
     font-weight: 600;
     transition: all 0.3s;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    display: inline-block;
-    text-align: center;
-    white-space: nowrap;
-}
-.header .buttons a:hover {
+  }
+  .header .buttons a:hover {
     background: #2575fc;
     transform: scale(1.1) rotate(-1deg);
     box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-}
+  }
 
-/* ================== Sections ================== */
-.section {
+  .section {
     padding: 40px 25px;
     border-bottom: 1px solid rgba(255,255,255,0.2);
     opacity: 0;
     transform: translateY(40px);
     transition: all 0.8s ease-out;
-}
-.section.visible { opacity:1; transform:translateY(0); }
-.section h2 {
+  }
+  .section.visible { opacity:1; transform:translateY(0); }
+
+  .section h2 {
     font-size: 2rem;
     margin-bottom: 20px;
     color: #2575fc;
     transition: all 0.3s;
     text-align: left;
-}
-.section:hover h2 { color: #6a11cb; }
-.section ul { list-style: none; padding-left: 0; margin-left: 0; }
-.section ul li { margin-bottom: 12px; font-size: 1.05rem; }
+  }
+  .section:hover h2 { color: #6a11cb; }
 
-/* ================== Grille ================== */
-.grid-2 { display: grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .section ul { list-style: none; padding-left: 0; margin-left: 0; }
+  .section ul li { margin-bottom: 12px; font-size: 1.05rem; }
 
-/* ================== Footer ================== */
-.footer {
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+
+  .footer {
     text-align: center;
     padding: 20px;
     font-size: 0.9rem;
     opacity: 0.7;
     background: rgba(255,255,255,0.05);
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-}
+  }
 
-/* ================== Animations ================== */
-@keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+  @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
 
-/* ================== Responsive mobile ================== */
-@media (max-width:700px) {
-    .header { padding: 30px 15px; }
-    .header h1 { font-size: 1.8rem; }
-    .header p { font-size: 0.9rem; }
-    .header .buttons { flex-direction: column; align-items: center; }
-    .header .buttons a { width: 100%; max-width: 250px; margin: 5px auto; padding: 10px 15px; }
-    .cv-container { padding: 10px; }
-    .section h2 { font-size: 1.3rem; }
-    .section ul li { font-size: 0.95rem; }
-    .grid-2 { grid-template-columns: 1fr; gap: 15px; }
-    .footer { font-size: 0.8rem; }
-}
+  @media (max-width:700px) { .grid-2{grid-template-columns:1fr;} .header h1{font-size:2.2rem;} }
 </style>
 </head>
 <body>
@@ -145,7 +112,7 @@ canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; 
     <p>Étudiant en BUT Informatique | Passionné de technologie & trading</p>
     <p>20 Route du Rhin, 67400 | zakaryaelfarssioui@gmail.com | 06 15 11 55 10</p>
     <div class="buttons">
-      <a href="CV-RT15.pdf" download>Télécharger le CV (PDF)</a>
+      <a href="CV-RT14.pdf" download>Télécharger le CV (PDF)</a>
       <a href="mailto:zakaryaelfarssioui@gmail.com">Me contacter</a>
     </div>
   </div>
@@ -219,64 +186,89 @@ canvas#bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; 
 </div>
 
 <script>
-const sections = document.querySelectorAll('.section');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){ entry.target.classList.add('visible'); }
-  });
-}, { threshold: 0.2 });
-sections.forEach(section => observer.observe(section));
+  /* reveal */
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.18 });
+  sections.forEach(s => observer.observe(s));
 
-const canvas = document.getElementById('bg');
-const ctx = canvas.getContext('2d');
-let particlesArray;
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+  /* particles améliorées */
+  const canvas = document.getElementById('bg');
+  const ctx = canvas.getContext('2d');
 
-window.addEventListener('resize', function(){
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  init();
-});
+  function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+  resize();
+  window.addEventListener('resize', () => { resize(); initParticles(); });
 
-class Particle {
-  constructor(x, y, size, speedX, speedY){
-    this.x = x; this.y = y; this.size = size; this.speedX = speedX; this.speedY = speedY;
+  let mouse = { x: null, y: null, radius: 140 };
+  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
+
+  class Particle {
+    constructor(x,y,r,baseJitter){
+      this.x = x; this.y = y; this.r = r;
+      this.baseX = x; this.baseY = y;
+      this.vx = 0; this.vy = 0;
+      this.jitter = baseJitter; // amplitude du jitter autour de la base
+    }
+    draw(){
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(255,255,255,0.65)';
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+      ctx.fill();
+    }
+    update(){
+      // Si souris présente -> attraction (faible)
+      if(mouse.x !== null && mouse.y !== null){
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const dist = Math.hypot(dx, dy);
+        if(dist < mouse.radius){
+          const pull = (1 - dist / mouse.radius) * 0.25; // force réduite (0..0.25)
+          this.vx += (dx / (dist || 1)) * pull;
+          this.vy += (dy / (dist || 1)) * pull;
+        }
+      }
+
+      // inertie + friction
+      this.x += this.vx;
+      this.y += this.vy;
+      this.vx *= 0.88; // friction plus forte -> moins "collant"
+      this.vy *= 0.88;
+
+      // retour progressif vers la base (rapide)
+      const bx = (this.baseX + Math.sin(Date.now() * 0.001 + this.baseX) * this.jitter) - this.x;
+      const by = (this.baseY + Math.cos(Date.now() * 0.001 + this.baseY) * this.jitter) - this.y;
+      this.x += bx * 0.035; // facteur de retour plus fort
+      this.y += by * 0.035;
+    }
   }
-  update(){
-    this.x += this.speedX;
-    this.y += this.speedY;
-    if(this.x > canvas.width || this.x < 0) this.speedX *= -1;
-    if(this.y > canvas.height || this.y < 0) this.speedY *= -1;
-  }
-  draw(){
-    ctx.fillStyle = 'rgba(255,255,255,0.6)';
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
-    ctx.fill();
-  }
-}
 
-function init(){
-  particlesArray = [];
-  for(let i=0; i<100; i++){
-    let size = Math.random()*3 + 1;
-    let x = Math.random()*canvas.width;
-    let y = Math.random()*canvas.height;
-    let speedX = (Math.random()-0.5)*1;
-    let speedY = (Math.random()-0.5)*1;
-    particlesArray.push(new Particle(x,y,size,speedX,speedY));
+  let particles = [];
+  function initParticles(){
+    particles = [];
+    // densité augmentée : diviseur plus faible = plus de points
+    const count = Math.max(120, Math.round((canvas.width * canvas.height) / 40000));
+    for(let i=0;i<count;i++){
+      const r = Math.random()*1.6 + 0.4;
+      const x = Math.random()*canvas.width;
+      const y = Math.random()*canvas.height;
+      const jitter = Math.random()*8; // amplitude du petit mouvement local
+      particles.push(new Particle(x,y,r,jitter));
+    }
   }
-}
 
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particlesArray.forEach(p => { p.update(); p.draw(); });
-  requestAnimationFrame(animate);
-}
+  function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
 
-init();
-animate();
+  initParticles();
+  animate();
 </script>
 
 </body>
